@@ -78,4 +78,11 @@ The `renderer: {}` preset in `vite.config.ts` is only a Vite adapter that polyfi
 - [C/C++ addons, Node.js modules - Pre-Bundling](https://github.com/electron-vite/vite-plugin-electron-renderer#dependency-pre-bundling)
 - [dependencies vs devDependencies](https://github.com/electron-vite/vite-plugin-electron-renderer#dependencies-vs-devdependencies)
 ## ScreenShots
-<img width="1917" height="1017" alt="image" src="https://github.com/user-attachments/assets/1f10452e-056e-409f-b12c-395c8e0966de" />
+<img width="1917" height="951" alt="image" src="https://github.com/user-attachments/assets/fc2ddc0d-8bd3-42e3-8159-50fd82b475c4" />
+<img width="1912" height="1043" alt="image" src="https://github.com/user-attachments/assets/2ac5bede-2583-414c-9468-8c916dcbd274" />
+<img width="1912" height="1007" alt="image" src="https://github.com/user-attachments/assets/f343f5ea-6f92-4675-ab79-a5b963e19f07" />
+<img width="1907" height="1007" alt="image" src="https://github.com/user-attachments/assets/83063124-8862-4771-bb72-5178d712f683" />
+
+
+
+
