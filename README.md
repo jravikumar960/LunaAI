@@ -77,3 +77,5 @@ The `renderer: {}` preset in `vite.config.ts` is only a Vite adapter that polyfi
 - Auto-update docs: [English](src/components/update/README.md) | [简体中文](src/components/update/README.zh-CN.md)
 - [C/C++ addons, Node.js modules - Pre-Bundling](https://github.com/electron-vite/vite-plugin-electron-renderer#dependency-pre-bundling)
 - [dependencies vs devDependencies](https://github.com/electron-vite/vite-plugin-electron-renderer#dependencies-vs-devdependencies)
+## ScreenShots
+<img width="1917" height="1017" alt="image" src="https://github.com/user-attachments/assets/1f10452e-056e-409f-b12c-395c8e0966de" />
