@@ -1,109 +1,273 @@
-import { useState } from 'react'
-import UpdateElectron from '@/components/update'
-import logoVite from './assets/logo-vite.svg'
-import logoElectron from './assets/logo-electron.svg'
-import logoTailwind from './assets/logo-tailwindcss.svg'
+import { useState, useEffect, useRef } from "react";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import ChatInput from "./components/ChatInput";
+import ChatMessage from "./components/ChatMessage";
+import Documents from "./components/Documents";
+import Memory from "./components/Memory";
+import Automation from "./components/Automation";
+import Privacy from "./components/Privacy";
+import Settings from "./components/Settings";
+import Vision from "./components/Vision";
+import Files from "./components/Files";
+import { exportChat } from "./services/export";
+import History from "./components/History";
+import "./index.css";
 
-function App() {
-  const [count, setCount] = useState(0)
-  return (
-    <div className='relative min-h-screen overflow-hidden bg-slate-50 px-4 py-8 text-slate-900 sm:px-6 lg:px-8'>
-      <div className='pointer-events-none absolute inset-0'>
-        <div className='absolute -left-28 top-10 h-96 w-96 rounded-full bg-cyan-200/50 blur-3xl' />
-        <div className='absolute -right-24 top-28 h-96 w-96 rounded-full bg-sky-200/40 blur-3xl' />
-        <div className='absolute bottom-0 left-1/2 h-72 w-[46rem] -translate-x-1/2 bg-gradient-to-r from-cyan-200/0 via-cyan-300/45 to-cyan-200/0 blur-3xl' />
-      </div>
-
-      <div className='relative mx-auto flex w-full max-w-6xl flex-col gap-8'>
-        <section className='overflow-hidden rounded-[2rem] border border-slate-200 bg-white/90 shadow-[0_24px_70px_-40px_rgba(14,116,144,0.35)] backdrop-blur'>
-          <div className='grid gap-8 p-6 md:grid-cols-[1.15fr_0.85fr] md:p-10'>
-            <div className='flex flex-col justify-between gap-8'>
-              <div className='space-y-6'>
-                <div className='inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.24em] text-cyan-800'>
-                  Electron + Vite + React + Tailwind
-                </div>
-                <div className='space-y-4'>
-                  <h1 className='max-w-xl text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl'>
-                    Modern starter, cleaner rhythm, unified visual language.
-                  </h1>
-                  <p className='max-w-2xl text-base leading-7 text-slate-600 sm:text-lg'>
-                    Refined spacing, balanced contrast, and consistent cards make the page feel more polished while keeping all demo functionality intact.
-                  </p>
-                </div>
-              </div>
-
-              <a
-                href='https://github.com/electron-vite/electron-vite-react'
-                target='_blank'
-                rel='noreferrer'
-                className='group inline-flex w-fit items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-cyan-300 hover:shadow-md'
-              >
-                <span className='relative flex h-10 w-10 items-center justify-center'>
-                  <img src={logoVite} className='h-8 w-8' alt='Vite logo' />
-                  <img
-                    src={logoElectron}
-                    className='absolute h-8 w-8 motion-safe:animate-spin [animation-duration:20s]'
-                    alt='Electron logo'
-                  />
-                </span>
-                <span className='pr-2 text-sm font-semibold text-slate-700 transition-colors group-hover:text-cyan-700'>
-                  Open project repository
-                </span>
-              </a>
-            </div>
-
-            <div className='relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-gradient-to-br from-cyan-50 to-white p-6'>
-              <div className='pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-cyan-200/60 blur-2xl' />
-              <div className='relative space-y-4'>
-                <div className='flex items-center justify-between'>
-                  <div className='text-sm uppercase tracking-[0.3em] text-slate-500'>Counter demo</div>
-                  <img src={logoTailwind} className='h-6 w-6 opacity-90' alt='Tailwind CSS logo' />
-                </div>
-                <div className='text-5xl font-semibold text-slate-900'>{count}</div>
-                <button
-                  onClick={() => setCount((value) => value + 1)}
-                  className='inline-flex items-center justify-center rounded-2xl bg-cyan-500 px-5 py-3 font-semibold text-white transition hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-white'
-                >
-                  Increment counter
-                </button>
-                <p className='text-sm leading-6 text-slate-600'>
-                  Edit <code>src/App.tsx</code> and save to test HMR.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className='grid gap-4 md:grid-cols-3'>
-          <div className='rounded-3xl border border-slate-200 bg-white p-6 text-slate-800 shadow-[0_18px_36px_-28px_rgba(15,23,42,0.35)]'>
-            <div className='text-sm uppercase tracking-[0.3em] text-slate-500'>Public assets</div>
-            <p className='mt-3 text-base leading-7'>
-              Place static files into the <code>/public</code> folder.
-            </p>
-          </div>
-
-          <div className='rounded-3xl border border-cyan-200 bg-gradient-to-br from-cyan-50 to-sky-50 p-6 text-slate-800 shadow-[0_18px_36px_-28px_rgba(14,116,144,0.4)]'>
-            <div className='flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-cyan-700'>
-              <img src={logoTailwind} className='h-5 w-5' alt='Tailwind CSS logo' />
-              Tailwind system
-            </div>
-            <p className='mt-3 text-base leading-7 text-slate-700'>
-              Unified utility classes now drive layout, hierarchy, and component consistency across the app.
-            </p>
-          </div>
-
-          <div className='rounded-3xl border border-slate-200 bg-white p-6 text-slate-800 shadow-[0_18px_36px_-28px_rgba(15,23,42,0.35)]'>
-            <div className='text-sm uppercase tracking-[0.3em] text-slate-500'>Update panel</div>
-            <p className='mt-3 text-base leading-7'>
-              Built-in updater UI follows the same spacing and typography rules for a more harmonious experience.
-            </p>
-          </div>
-        </section>
-
-        <UpdateElectron />
-      </div>
-    </div>
-  )
+interface Message {
+  id: number;
+  role: "user" | "assistant";
+  content: string;
 }
 
-export default App
+export default function App() {
+  // Default page
+  const [selectedMenu, setSelectedMenu] = useState("Chat");
+
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      role: "assistant",
+      content: "👋 Hello Ravi! I'm Luna. Ask me anything.",
+    },
+  ]);
+
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const [thinking, setThinking] = useState(false);
+  async function clearChat() {
+  try {
+    await fetch("http://127.0.0.1:8000/history", {
+      method: "DELETE",
+    });
+
+    setMessages([
+      {
+        id: 1,
+        role: "assistant",
+        content: "👋 Hello Ravi! I'm Luna. Ask me anything.",
+      },
+    ]);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+  async function loadHistory() {
+    try {
+      const res = await fetch("http://127.0.0.1:8000/history");
+      const data = await res.json();
+
+      if (data.length > 0) {
+        const formatted = data.map((msg: any, index: number) => ({
+          id: index + 1,
+          role: msg.role,
+          content: msg.content,
+        }));
+
+        setMessages(formatted);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+ /* useEffect(() => {
+    loadHistory();
+  }, []);*/
+
+  // Auto-scroll whenever messages change
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [messages]);
+
+  async function sendMessage(text: string) {
+    if (!text.trim()) return;
+
+    const userMessage: Message = {
+      id: Date.now(),
+      role: "user",
+      content: text,
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setThinking(true);
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: text,
+        }),
+      });
+
+      const data = await res.json();
+
+      const aiMessage: Message = {
+    id: Date.now() + 1,
+    role: "assistant",
+    content: data.response,
+};
+
+setThinking(false);
+
+setMessages((prev) => [...prev, aiMessage]);
+    } catch {
+      setThinking(false);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now() + 1,
+          role: "assistant",
+          content: "❌ Unable to contact Luna backend.",
+        },
+      ]);
+    }
+  }
+
+  function handlePDFUploaded(filename: string) {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now(),
+        role: "assistant",
+        content:
+          `📄 PDF uploaded successfully.\n\nFile: ${filename}\n\nYou can now ask me questions about this document.`,
+      },
+    ]);
+  }
+
+  return (
+    <div className="app-container">
+
+      <Sidebar
+        selected={selectedMenu}
+        setSelected={setSelectedMenu}
+      />
+
+      <main className="main-content">
+
+        <div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  }}
+>
+  <Header />
+
+{selectedMenu === "Chat" && (
+  <>
+    <button
+      onClick={clearChat}
+      style={{
+        background: "#ef4444",
+        color: "white",
+        border: "none",
+        padding: "10px 18px",
+        borderRadius: 10,
+        cursor: "pointer",
+        height: 42,
+        marginTop: 20,
+      }}
+    >
+      🗑️ Clear Chat
+    </button>
+
+    <button
+      onClick={() => exportChat(messages)}
+      style={{
+        background: "#10b981",
+        color: "white",
+        border: "none",
+        padding: "10px 18px",
+        borderRadius: 10,
+        cursor: "pointer",
+        marginRight: 10,
+      }}
+    >
+      📄 Export Chat
+    </button>
+  </>
+)}
+</div>
+        {selectedMenu === "History" ? (
+
+          <History />
+
+        ) : selectedMenu === "Memory" ? (
+
+          <Memory />
+        ) : selectedMenu === "Files" ? (
+
+          <Files />
+
+
+        ) : selectedMenu === "Documents" ? (
+
+          <Documents />
+
+        ) : selectedMenu === "Vision" ? (
+
+          <Vision />
+
+        ) : selectedMenu === "Automation" ? (
+
+          <Automation />
+
+        ) : selectedMenu === "Privacy" ? (
+
+          <Privacy />
+
+        ) : selectedMenu === "Settings" ? (
+
+          <Settings />
+
+        ) : (
+
+          <>
+            <div className="chat-window">
+
+              {messages.map((message) => (
+                <ChatMessage
+                  key={message.id}
+                  message={message}
+                />
+              ))}
+              {thinking && (
+  <div
+    style={{
+      background: "#1d2638",
+      padding: 16,
+      borderRadius: 12,
+      marginBottom: 15,
+      width: "fit-content",
+      color: "white",
+      fontStyle: "italic",
+    }}
+  >
+    🤖 Luna is thinking...
+  </div>
+)}
+
+              <div ref={bottomRef}></div>
+
+            </div>
+
+            <ChatInput
+              onSend={sendMessage}
+              onPDFUploaded={handlePDFUploaded}
+            />
+          </>
+
+        )}
+
+      </main>
+
+    </div>
+  );
+}
